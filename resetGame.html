@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script type="text/javascript" src="jquery.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="resetGame()">Erase Rest Game</button>
+    <script>
+        function resetGame()
+        {
+            console.log('val');
+
+            $.ajax(
+            {
+                url:"back.php",
+                method: "POST",
+                data:{"clearData": "empty"},
+                success:function(val){
+                    if (val)
+                    {
+                        console.log(val);
+                        window.location.href='start.php';
+	        		}
+                ;}
+            });
+        }
+    </script>
+</body>
+</html>

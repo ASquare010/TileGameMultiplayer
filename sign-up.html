@@ -1,0 +1,39 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<table>
+<tr><td>Player name:</td><td><input type="text" id = "name"></td></tr>
+<tr><td>Password:</td><td> <input type="text" id="pass"></td></tr>
+<tr><td>Confirm Password:</td><td> <input type="text" id="conPass"></td></tr>
+<tr><td>Pick your team:</td><td> <select id = "teamColor"><option>Red</option><option>Green</option><option>Yellow</option></select></td></tr>
+</table>
+<br></br>
+<button onclick="signUp()" >Sign me up!</button>
+<script type="text/javascript">
+    function signUp()
+    {
+        var pass = document.getElementById('pass').value;
+        var name = document.getElementById('name').value;
+        var teamColor = document.getElementById('teamColor').value;
+        if( pass === document.getElementById('conPass').value && name != "")
+        {  
+            $.ajax(
+                {
+                    url:"back.php",
+                    method: "POST",
+                    data:{"user":name,"pass":pass,"teamColor":teamColor},
+                    success:function(data){
+                        if (data=='true') {
+                            window.location.href='mainPage.html';
+                        }
+                        else if(data == 'false')
+                        {
+                            alert("User already exists");
+                        }
+                    
+                    ;}
+                }
+                );
+        }
+        else
+            alert("Password doesn't not match or user is Empty");
+    }
+</script>

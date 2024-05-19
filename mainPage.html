@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="jquery.js"></script>
+	<title></title>
+	<style>
+		h1
+		{
+			position: absolute; top: 0; left: 30px;
+			font-size: 50px;
+		}
+		div {border:  1px solid black;}
+		#layout
+		{
+			margin-left:  10px;
+			margin-right:  10px;
+
+			width: 50%;
+			height: 75vh;
+			float: left;
+ 			display: grid; 
+ 			grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+ 			grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; 
+			gap: 0px 0px; 
+		}
+		.cell{background-color: skyblue;}
+		#info{
+			padding: 1%;
+			margin-left:  5px;
+			margin-right:  5px;
+			width: 20%;
+			height: 72vh;
+			float: left;
+		}
+		#displayMsg{
+			padding:  5px;
+		}
+		#chat{
+			width: 20%;
+			margin-left:  5px;
+			margin-right:  5px;
+			position: relative;
+			padding: 1%;
+			height: 73vh;
+			float: left;
+			
+		}
+		img {margin: 2px;}
+		#enter
+		{
+			position:  absolute;
+			bottom: 0;
+		}
+	</style>
+</head>
+<body>
+<h1>Pirate Ships!</h1>
+<p style="text-align: right " ><span id="playername" style="font-size: 30px ;margin-right: 20px;"></span></p>
+<p style="text-align: right"><button onclick="logout()">Logout</button></p>
+<br>
+<div id=layout>
+	<div  class="cell" id="0,0"></div><div  class="cell" id="0,1"></div><div  class="cell" id="0,2"></div><div  class="cell" id="0,3"></div><div class="cell" id="0,4"></div><div class="cell" id="0,5"></div><div class="cell" id="0,6"></div><div class="cell" id="0,7"></div><div class="cell" id="0,8"></div><div class="cell"id="0,9"></div>
+	<div  class="cell" id="1,0"></div><div  class="cell" id="1,1"></div><div  class="cell" id="1,2"></div><div  class="cell" id="1,3"></div><div class="cell" id="1,4"></div><div class="cell" id="1,5"></div><div class="cell" id="1,6"></div><div class="cell" id="1,7"></div><div class="cell" id="1,8"></div><div class="cell"id="1,9"></div>
+	<div  class="cell" id="2,0"></div><div  class="cell" id="2,1"></div><div  class="cell" id="2,2"></div><div  class="cell" id="2,3"></div><div class="cell" id="2,4"></div><div class="cell" id="2,5"></div><div class="cell" id="2,6"></div><div class="cell" id="2,7"></div><div class="cell" id="2,8"></div><div class="cell"id="2,9"></div>
+	<div  class="cell" id="3,0"></div><div  class="cell" id="3,1"></div><div  class="cell" id="3,2"></div><div  class="cell" id="3,3"></div><div class="cell" id="3,4"></div><div class="cell" id="3,5"></div><div class="cell" id="3,6"></div><div class="cell" id="3,7"></div><div class="cell" id="3,8"></div><div class="cell"id="3,9"></div>
+	<div  class="cell" id="4,0"></div><div  class="cell" id="4,1"></div><div  class="cell" id="4,2"></div><div  class="cell" id="4,3"></div><div class="cell" id="4,4"></div><div class="cell" id="4,5"></div><div class="cell" id="4,6"></div><div class="cell" id="4,7"></div><div class="cell" id="4,8"></div><div class="cell"id="4,9"></div>
+	<div  class="cell" id="5,0"></div><div  class="cell" id="5,1"></div><div  class="cell" id="5,2"></div><div  class="cell" id="5,3"></div><div class="cell" id="5,4"></div><div class="cell" id="5,5"></div><div class="cell" id="5,6"></div><div class="cell" id="5,7"></div><div class="cell" id="5,8"></div><div class="cell"id="5,9"></div>
+	<div  class="cell" id="6,0"></div><div  class="cell" id="6,1"></div><div  class="cell" id="6,2"></div><div  class="cell" id="6,3"></div><div class="cell" id="6,4"></div><div class="cell" id="6,5"></div><div class="cell" id="6,6"></div><div class="cell" id="6,7"></div><div class="cell" id="6,8"></div><div class="cell"id="6,9"></div>
+	<div  class="cell" id="7,0"></div><div  class="cell" id="7,1"></div><div  class="cell" id="7,2"></div><div  class="cell" id="7,3"></div><div class="cell" id="7,4"></div><div class="cell" id="7,5"></div><div class="cell" id="7,6"></div><div class="cell" id="7,7"></div><div class="cell" id="7,8"></div><div class="cell"id="7,9"></div>
+	<div  class="cell" id="8,0"></div><div  class="cell" id="8,1"></div><div  class="cell" id="8,2"></div><div  class="cell" id="8,3"></div><div class="cell" id="8,4"></div><div class="cell" id="8,5"></div><div class="cell" id="8,6"></div><div class="cell" id="8,7"></div><div class="cell" id="8,8"></div><div class="cell"id="8,9"></div>
+	<div  class="cell" id="9,0"></div><div  class="cell" id="9,1"></div><div  class="cell" id="9,2"></div><div  class="cell" id="9,3"></div><div class="cell" id="9,4"></div><div class="cell" id="9,5"></div><div class="cell" id="9,6"></div><div class="cell" id="9,7"></div><div class="cell" id="9,8"></div><div class="cell"id="9,9"></div>
+</div>
+
+<div id=info>
+	Your Location: <span id="location">NULL</span> <br><br>
+	
+	<b>Territory leaderboard</b><br>
+	Team red: <span id="red">0</span> cells<br>
+	Team green: <span id="green">0</span> cells<br>
+	Team yellow: <span id="yellow">0</span> cells<br><br>
+
+	Unoccupied: <span id="total">100</span> cells<br><br>
+
+	<b>Players online</b><br>
+	Team red:<span id="redLog"> loading</span><br>
+	Team green: <span id="greenLog">loading</span><br>
+	Team yellow: <span id="yellowLog">loading</span><br><br>
+</div>
+
+<div id="chat">
+	<div id="displayMsg" style=" overflow-y: scroll; height:65vh;">No data</div>
+	<p id="enter">Enter text: <input type="text"  id="msg"></p>
+</div>
+
+<script>
+
+//----------------------------------------getPlayerData-----------------------------------------------
+
+     $.ajax(
+       {
+           url:"back.php",
+           method: "POST",
+           data:{"loadIndex": "empty"},
+           success:function(val){
+               if (val) {
+					data = JSON.parse(val);
+					playerColor = data['playerColor'];
+					playerName = data['playerName'];
+					//console.log(data);
+					document.getElementById('location').innerText=data['location'];
+					var span =document.createElement('span');
+					span.style.background='pink';
+					span.style.fontSize = '13px';
+					span.innerText =data['playerName'];
+					document.getElementById(data['location']).appendChild(span);
+					var avatar =document.getElementById('playername');
+					avatar.innerText="Player : "+data['playerName'];
+					avatar.style.background=data['playerColor'];
+               }
+           
+           ;}
+       });
+//----------------------------------------ToolTips-------------------------------------------------------
+
+
+	const hoverElemnet = document.querySelectorAll(".cell");
+  	for (let i = 0; i < hoverElemnet.length; i++)
+	{
+		hoverElemnet[i].addEventListener('mouseout', function()
+		{
+			hoverElemnet[i].title = hoverElemnet[i].id ;
+			$.ajax(
+       		{
+       		    url:"back.php",
+       		    method: "POST",
+       		    data:{"toolTip":  hoverElemnet[i].id},
+       		    success:function(data){
+       		        if (data != 'false') 
+					{
+						var val="";
+						var arr = JSON.parse(data);
+						for (let i = 0; i < arr.length; i++) {
+							val = val+ arr[i]['playerName']+" ";
+						}
+						hoverElemnet[i].title = val;
+       		        }
+       		    }
+       		});
+
+		});
+	}
+
+//----------------------------------------SetLocation-------------------------------------------------------
+
+	const childElements = document.querySelectorAll(".cell");
+  	for (let i = 0; i < childElements.length; i++)
+{
+	childElements[i].addEventListener("click", function() 
+    {
+	   
+      $.ajax(
+        {
+            url:"back.php",
+            method: "POST",
+            data:{"index": childElements[i].id},
+            success:function(data){
+                if (data) 
+				{
+                    document.getElementById(childElements[i].id).style.backgroundColor =""+data;
+					document.getElementById('location').innerText=childElements[i].id;	
+					//console.log(data);
+                }
+            
+            ;}
+        });
+	});
+	childElements[i].addEventListener('dblclick', function(event) 
+	{
+    	alert("Double-click disabled!");
+    	event.preventDefault();
+    	event.stopPropagation();
+  		}, true //capturing phase!!
+	);
+}
+
+
+//----------------------------------------UpdateLoop-------------------------------------------------------
+	var red=0;
+	var yellow=0;
+	var green=0;
+	var total=0;
+	setInterval(function()
+	{
+		$.ajax(
+        {	
+            url:"back.php",
+            method: "POST",
+            data:{"loop": "empty"},
+            success:function(val){
+                if (val) 
+				{
+					data = JSON.parse(val);
+
+					updateGrid(data['grid']);
+					updatePlayerLoc(data['players']);
+					messageUpdater(data['messages']);	
+                }
+            
+            ;}
+        });
+
+	},500);
+	
+//----------------------------------------PlayerLoc-------------------------------------------------------
+function updatePlayerLoc(data)
+{
+	var red=0;
+	var yellow=0;
+	var green=0;
+	for (let i = 0; i < data.length; i++) 
+	{	
+		var span =document.createElement('span');
+		span.style.background='pink';
+		span.innerText =data[i]['playerName'];
+		span.style.fontSize = '13px';
+		document.getElementById(data[i]['location']).appendChild(span);
+		document.getElementById(data[i]['location']).appendChild(document.createElement('br'));
+		if(data[i]['logedIn'] == '1')
+		{
+			if(data[i]['playerColor'] == 'Red')
+				red++;
+			else if(data[i]['playerColor'] == 'Yellow')
+				yellow++;
+			else
+				green++;
+		}
+	}
+	document.getElementById('redLog').innerText = red;
+	document.getElementById('yellowLog').innerText = yellow;
+	document.getElementById('greenLog').innerText = green;
+}
+function updateGrid(data)
+{
+	red=0;
+	yellow=0;
+	green=0;
+	total=0;
+	plus=data.split("+");
+	for (let i = 0; i < plus.length; i++) {
+		coma =plus[i].split(",");
+		console.log();
+		v =coma[0]+","+coma[1];
+		document.getElementById(v).style.backgroundColor =""+coma[2];
+		//remove all inner childs
+		document.getElementById(v).innerHTML ="";
+		
+		if (coma[2]=='red' || coma[2]=='Red') {
+			red++;
+		}
+		else if (coma[2]=='yellow' ||coma[2]=='Yellow') {
+			yellow++;
+		}
+		else if (coma[2]=='green'||coma[2]=='Green') {
+			green++;
+		}
+	}
+	total=100-(red+green+yellow);
+	document.getElementById('red').innerText=red;
+	document.getElementById('yellow').innerText=yellow;
+	document.getElementById('green').innerText=green;
+	document.getElementById('total').innerText=total;
+
+	//console.log(data);
+}
+
+//----------------------------------------logout-------------------------------------------------------
+function logout()
+{
+	$.ajax(
+        {
+            url:"back.php",
+            method: "POST",
+            data:{"logout": 'this'},
+            success:function(data){
+                if (data) {
+					window.location.href='start.php';
+                }
+            }
+        });
+}
+//----------------------------------------Message-------------------------------------------------------
+const inputElement = document.getElementById('msg');
+	inputElement.addEventListener('keydown', function(event) 
+	{
+		var txt = document.getElementById("msg").value;
+		var br =document.createElement('br');
+		if (event.key === 'Enter')
+	    {
+			$.ajax(
+        	{
+        	    url:"back.php",
+        	    method: "POST",
+        	    data:{"message": txt},
+        	    success:function(data){messageUpdater(data);}
+        	});
+			document.getElementById("msg").value = "";
+		}
+	});
+	function messageUpdater(val)
+	{
+		
+		if (val) 
+		{
+			data=val.split("+");
+			document.getElementById('displayMsg').innerHTML="";
+			for (let i = 0; i < data.length; i++) 
+			{
+			
+				plus=data[i].split(",");
+            	var newSpan = document.createElement('span');
+				var sp = document.createElement('span');	
+				newSpan.style.backgroundColor = plus[1];
+				newSpan.innerText =plus[0];
+				sp.innerText = ": "+plus[2];
+				document.getElementById('displayMsg').appendChild(newSpan);	
+				document.getElementById('displayMsg').appendChild(sp);
+				document.getElementById('displayMsg').appendChild(document.createElement('br'));
+			}
+   		}
+	}
+</script>
+</body>
+</html>

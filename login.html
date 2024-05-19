@@ -1,0 +1,32 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<table>
+<tr><td>Player name:</td><td><input id="name" type="text"></td></tr>
+<tr><td>Password:</td><td> <input id="pass" type="text"></td></tr>
+</table>
+<br></br>
+<button onclick="login()" >Log in</button>
+<script>
+
+    function login()
+    {
+        var pass = document.getElementById('pass').value;
+      //  console.log(pass);
+        var name = document.getElementById('name').value;
+        $.ajax(
+                {
+                    url:"back.php",
+                    method: "POST",
+                    data:{"loginName":name,"loginPass":pass},
+                    success:function(data){
+                        if (data=='true') {
+                            window.location.href='mainPage.html';
+                        }
+                        else
+                        {
+                            alert("incorrect credentials or User doesn't exists please try again");
+                        }
+                    ;}
+                }
+                );
+    }
+</script>
